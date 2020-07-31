@@ -204,7 +204,7 @@ namespace DAVESWeb.Areas.ShopCarGL.Controllers
             }) ;
             return Json(info1,JsonRequestBehavior.AllowGet);
         }
-        //黄子康第二次修改
+
         /*public ActionResult FaceToPay()
         {   //域名
             const string URL = "https://openapi.alipaydev.com/gateway.do";  //沙箱环境与正式环境不同 这里要用沙箱的 支付宝地址
