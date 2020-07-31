@@ -10,7 +10,7 @@ namespace DAVESWeb.Areas.Homepage.Controllers
 {
     public class HomeController : Controller
     {
-        // GET: Homepage/Home
+        //黄子康修改Homepage测试
         public ActionResult Index()
         {
             List<SlideShow> SSList = new SlideShowManager().GetAll();
