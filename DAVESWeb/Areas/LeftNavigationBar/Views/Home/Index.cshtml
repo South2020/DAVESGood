@@ -1,0 +1,105 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="/Content/HandsomeMan/Css/LeftNavigationBarCss.css" rel="stylesheet" />
+<div class="layui-container">
+    <div class="layui-col-xs12 layui-col-md12">
+        <div class="grid-demo grid-demo-bg1"><div class="title"></div></div>
+    </div>
+</div>
+<div class="layui-container">
+    <div class="layui-row">
+        <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">
+            <div class="grid-demo">
+                <div id="firstpane" class="menu_list">
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
+            <div class="grid-demo">
+                @*<div id="brand">品牌</div>
+                <div id="price">价格</div>
+                <div id="queryCondition">价格</div>*@
+                <div id="commodity">
+                    @*主体*@
+                    @*主体*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="~/Content/jquery-1.10.2.min.js"></script>
+<script>
+    $(function () {
+        $("#firstpane .menu_body:eq(0)").show();
+        $("#firstpane").on("click", "h3.menu_head", function () {
+            $(this).addClass("current").next("div.menu_body").slideToggle(300).siblings("div.menu_body").slideUp("slow");
+            $(this).siblings().removeClass("current");
+
+        });//on
+
+        $.get("/LeftNavigationBar/Home/selectType", "", function (data) {
+
+            for (var i = 0; i < data.length; i++) {//中类
+                //if (i == 0) {
+                //    $(".title").append("<a href='#'>首页</a>  &gt;<a href='#'>" + data[0].ComTypeName + "</a> ");
+                //}
+
+                $("#firstpane").append(
+                    "<a href='javascript:void(0);'  class='abb' Id1='@ViewBag.Id' Id2='" + data[i].Id +"'><h3 class='menu_head'>" + data[i].ComTypeName + "</h3></a>" +
+                    "<div style='display: block' class='menu_body q" + data[i].Id + "'></div>");
+                for (var b = 0; b < data[i].list2.length; b++) {//子类
+                    $(".q" + data[i].Id).append("<a  href='javascript:void(0);'  Id1='@ViewBag.Id'  class='acc' Id2='" + data[i].list2[b].Id +"'>" + data[i].list2[b].ComTypeName + "</a>");
+                }
+
+ 
+            }
+            $.get("/LeftNavigationBar/Home/selectCom", "", function (data) {
+                $("#commodity").html(data);
+            });
+            $(".abb").on("click",function () {
+                var info = {
+                    Id1: $(this).attr("Id1"),
+                    Id2: $(this).attr("Id2")
+                }
+                console.info(info);
+                $.ajax({
+                    url: "/LeftNavigationBar/Home/Index",
+                    type: "post",
+                    data: info,
+                    success: function () {
+
+                    }
+                });
+                $.get("/LeftNavigationBar/Home/selectCom", "", function (data) {
+                    $("#commodity").html(data);
+                });
+            })
+            $(".acc").on("click",function () {
+                console.info(info);
+                var info = {
+                    Id1: $(this).attr("Id1"),
+                    Id2: $(this).attr("Id2")
+                }
+                $.ajax({
+                    url: "/LeftNavigationBar/Home/Index",
+                    type: "post",
+                    data: info,
+                    success: function () {
+                    }
+                });
+                $.get("/LeftNavigationBar/Home/selectCom", "", function (data) {
+                    $("#commodity").html(data);
+                });
+            });
+        })
+
+
+
+    })
+</script>
+

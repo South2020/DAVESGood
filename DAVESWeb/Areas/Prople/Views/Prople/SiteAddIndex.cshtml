@@ -1,0 +1,108 @@
+﻿<style>
+    /*提交按钮*/
+    .but-tijiao {
+        background-color: #0069aa;
+        border: 0;
+        width: 150px;
+        height: 50px;
+        color: #fff;
+        font-size: 20px;
+        margin: 20px 0 0 80px;
+    }
+    /*修改密码*/
+    .mminput {
+        width: 400px;
+        border: 1px solid #dcdcdc;
+        height: 36px;
+        line-height: 36px;
+        outline: none;
+        padding: 0px 5px;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+        -webkit-box-sizing: border-box;
+        -moz-border-radius: 2px;
+        border-radius: 2px;
+        -webkit-border-radius: 2px;
+    }
+
+    .gray {
+        color: #666;
+    }
+
+    .red {
+        color: red;
+    }
+
+    .passtable tr {
+        height: 50px;
+    }
+</style>
+
+<table class="passtable">
+    <tr>
+        <td><span class="red">*</span>收件人:</td>
+        <td><input type="text" class="mminput" placeholder=" 收件人姓名" name="SiteProName" /></td>
+    </tr>
+    <tr>
+        <td><span class="red">*</span>收货地址:</td>
+        <td>
+            @Html.DropDownList("type1")
+            @Html.DropDownList("type2")
+            @Html.DropDownList("type3")
+        </td>
+    </tr>
+    <tr>
+        <td><span class="red">*</span>详细地址:</td>
+        <td><input type="text" class="mminput" placeholder="详细地址" name="SiteDetail"/></td>
+    </tr>
+    <tr>
+        <td><span class="red">*</span>手机号码:</td>
+        <td><input type="text" class="mminput" placeholder=" 常用手机号码" name="SitePhone"/></td>
+    </tr>
+    <tr>
+        <td colspan="2"><input type="checkbox" id="default-ads" name="SitePre">设为常用地址</td>
+    </tr>
+</table>
+<script src="~/Content/jquery-1.10.2.min.js"></script>
+<script>
+    //三级联动
+    $("#type1").change(function () {
+        var info = {
+            id: $(this).val(),
+            cc: 1
+        };
+        $("#type2").html("");
+        $.ajax({
+            url: "/Prople/Prople/Sanjilando",
+            type: "post",
+            data: info,
+            success: function (res) {
+                console.info(res);
+                for (var i = 0; i < res.length; i++) {
+                    $("#type2").append("<option value=" + res[i].id + ">" + res[i].Name + "</option>");
+                }
+            }
+        });
+
+    });
+    $("#type2").change(function () {
+        var info = {
+            id: $(this).val(),
+            cc: 2
+        };
+        $("#type3").html("");
+        $.ajax({
+            url: "/Prople/Prople/Sanjilando",
+            type: "post",
+            data: info,
+            success: function (res) {
+                console.info(res);
+                for (var i = 0; i < res.length; i++) {
+                    $("#type3").append("<option value=" + res[i].id + ">" + res[i].Name + "</option>");
+                }
+            }
+        });
+
+    });
+            //三级联动
+</script>

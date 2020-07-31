@@ -1,0 +1,204 @@
+﻿
+@{
+    ViewBag.Title = "戴夫商店-你的私人商店";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@using Model
+@model List<SlideShow>
+<link href="~/Content/HandsomeMan/Css/HomePageCss.css" rel="stylesheet" />
+@*轮播图*@
+<div class="layui-carousel" id="test2">
+    <div carousel-item="" class="lbt">
+        @foreach (var item in Model)
+        {
+            <div class="ba-img-one" style="background-image: url('/Images/@item.Img'); background-size:100% 100%;"></div>
+        }
+    </div>
+</div>
+@*轮播图*@
+<div class="floor-title">
+    <h1>为您推荐 Only For You</h1>
+</div>
+<div class="yxylist ">
+    <div class="yxylist-left leftimg-one">
+        <div>
+            <img src="~/Content/HandsomeMan/image/clue.png" width="155" height="155" class="layui-anim layui-anim-rotate layui-anim-loop" />
+        </div>
+        <div class="color-stang">山姆会员尊享会员权益</div>
+        <div><h3>全球门店</h3></div>
+        <div><h3>山姆网购通用会籍</h3></div>
+        <div><h3><button class="but-tom">开通会员&gt;</button></h3></div>
+    </div>
+    <div class="yxylist-right">
+        <div class="yxylist-main">
+            <img src="~/Content/HandsomeMan/image/baihegan.jpg" width="265" height="280" />
+            <p>Member's Mark 百合干 200g</p>
+            <strong><em>¥</em> 67.8</strong>
+        </div>
+        <div class="yxylist-main">
+            <img src="~/Content/HandsomeMan/image/baihegan.jpg" width="265" height="280" />
+            <p>Member's Mark 百合干 200g</p>
+            <strong><em>¥</em> 67.8</strong>
+        </div>
+        <div class="yxylist-main">
+            <img src="~/Content/HandsomeMan/image/baihegan.jpg" width="265" height="280" />
+            <p>Member's Mark 百合干 200g</p>
+            <strong><em>¥</em> 67.8</strong>
+        </div>
+        <div class="yxylist-main">
+            <img src="~/Content/HandsomeMan/image/baihegan.jpg" width="265" height="280" />
+            <p>Member's Mark 百合干 200g</p>
+            <strong><em>¥</em> 67.8</strong>
+        </div>
+
+    </div>
+</div>
+<div class="floor-title">
+    <h1>山姆大叔推荐 Sam's Recommends</h1>
+</div>
+<div class="floor-title">
+    <h1>会员热购 Best Buy</h1>
+</div>
+<div class="my-shopping-box">
+
+</div>
+<script src="/Content/jquery-1.10.2.min.js"></script>
+<script>
+    $(function () {
+
+        $.get("/HomePage/Home/selectAll", "", function (res) {
+            for (var i = 0; i < res.length; i++) {
+                if (i == 0||i==3||i==4||i==7||i==8) {
+                    continue;
+                }
+                $(".my-shopping-box").append("<div class=\"my-shopping\"><div class= \"my-shopping-frist b" + i + "\">" +
+                    " <div class=\"my-shopping-frist-one\">" +
+                    "<div class=\"my-shopping-frist-text\"><a href='/LeftNavigationBar/Home/Index?Id1=" + res[i].Id + "&Id2=" + res[i].Id +"'>" + res[i].ComTypeName + "</a></div>" +
+                    "</div>" +
+                    "  <div class=\"tags my-shopping-frist-two\">" +
+                    " <ul class=\"clear\" id='q" + res[i].Id + "'>" +
+                    "</ul> " +
+                    "  </div> " +
+                    " </div><div class=\"my-shopping-last\"  id='b" + i + "'></div></div>");
+
+                var info1 = {
+                    Id: res[i].Id
+                }
+
+                for (var j = 0; j < res[i].listtwo.length; j++) {
+                    $("#q" + info1.Id).append("<li><a href=\"/LeftNavigationBar/Home/Index?Id1=" + res[i].Id + "&Id2=" + res[i].listtwo[j].Id +"\" target=\"_blank\">" + res[i].listtwo[j].ComTypeName + "</a></li> ");
+                    for (var e = 0; e < res[i].listtwo[j].listhree.length; e++) {
+                        for (var b = 0; b < res[i].listtwo[j].listhree[e].listcom.length; b++) {
+                                if (res[i].listtwo[j].listhree[e].listcom[b].ComStatic == 0) {
+
+                                } else {
+                                    $("#b" + i).append("<div class=\"yxylist-main\">" +
+                                        "<a href=\"Javascript:void(0)\">" +
+                                        "<div><a href='/Commodity/Home/Index/" + res[i].listtwo[j].listhree[e].listcom[b].Id + "' class='bla'><img src=\"/Images/" + res[i].listtwo[j].listhree[e].listcom[b].ComImg+"\" width=\"265\" height=\"280\"/></a></div>" +
+                                        " <p><span>" + res[i].listtwo[j].listhree[e].listcom[b].ComName + "</span></p>" +
+                                        "<strong><span>￥</span><span>" + res[i].listtwo[j].listhree[e].listcom[b].ComMoney + "</span></strong>" +
+                                        " </a>" +
+                                        " </div>");
+                                }
+                            
+                                
+                        }
+                    }
+                }
+            }
+        });//get
+
+        //轮播图
+        layui.use('carousel', function () {
+            var carousel = layui.carousel;
+            //建造实例
+            carousel.render({
+                elem: '#banner1'
+                , width: '100%' //设置容器宽度
+                , height: (W / b).toString() + "px"  //按比例和浏览器可视页面宽度来获取高度
+                , arrow: 'always' //始终显示箭头
+                //,anim: 'updown' //切换动画方式
+            });
+        });
+        //窗口变化是重新加载
+        $(window).resize(function () {
+            // setBanner();
+            window.location.reload()
+        })
+        var b = 1500 / 400;//我的图片比例
+        //获取浏览器宽度
+        var W = $(window).width();
+        var H = $(window).height();
+        layui.use(['carousel', 'form'], function () {
+            var carousel = layui.carousel
+                , form = layui.form;
+
+            //常规轮播
+            carousel.render({
+                elem: '#test1'
+                , arrow: 'always'
+            });
+
+            //改变下时间间隔、动画类型、高度
+            carousel.render({
+                elem: '#test2'
+                , interval: 5000
+                , anim: 'fade'
+                , width: '100%' //设置容器宽度
+                , height: (W / b).toString() + "px"  //按比例和浏览器可视页面宽度来获取高度
+            });
+
+            //设定各种参数
+            var ins3 = carousel.render({
+                elem: '#test3'
+            });
+            //图片轮播
+            carousel.render({
+                elem: '#test10'
+                , width: '100%'
+                , height: (W / b).toString() + "px"
+                , interval: 5000
+            });
+
+            //事件
+            carousel.on('change(test4)', function (res) {
+                console.log(res)
+            });
+
+            var $ = layui.$, active = {
+                set: function (othis) {
+                    var THIS = 'layui-bg-normal'
+                        , key = othis.data('key')
+                        , options = {};
+
+                    othis.css('background-color', '#5FB878').siblings().removeAttr('style');
+                    options[key] = othis.data('value');
+                    ins3.reload(options);
+                }
+            };
+
+            //监听开关
+            form.on('switch(autoplay)', function () {
+                ins3.reload({
+                    autoplay: this.checked
+                });
+            });
+
+            $('.demoSet').on('keyup', function () {
+                var value = this.value
+                    , options = {};
+                if (!/^\d+$/.test(value)) return;
+
+                options[this.name] = value;
+                ins3.reload(options);
+            });
+
+            //其它示例
+            $('.demoTest .layui-btn').on('click', function () {
+                var othis = $(this), type = othis.data('type');
+                active[type] ? active[type].call(this, othis) : '';
+            });
+        });
+        //轮播图
+    })
+</script>

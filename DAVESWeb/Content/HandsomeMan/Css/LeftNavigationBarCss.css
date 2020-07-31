@@ -1,0 +1,125 @@
+﻿.menu_list {
+    width: 200px;
+}
+.menu_head {
+    color: #024C8E;
+    height: 30px;
+    line-height:30px;
+    padding-left:18px;
+    font-size: 14px;
+    cursor: pointer;
+    position: relative;
+    margin: 0px;
+    background: url('../LeftNavigationBarImg/pro_down.png')center left no-repeat;
+}
+.menu_list .current {
+    background: url('../LeftNavigationBarImg/pro_left.png')center left no-repeat;
+}
+.menu_body {
+    line-height: 38px;
+    background: #fff;
+}
+.menu_body a {
+    display: block;
+    height: 28px;
+    line-height: 28px;
+    padding-left: 22px;
+    color: #777777;
+    background: #fff;
+    text-decoration: none;
+ }
+.menu_body a:hover {
+    text-decoration: none;
+    color: #024C8E;
+}
+.title a {
+    line-height:40px;
+    color: #777777;
+}
+.layui-container {
+width:1500px;
+height:100%
+}
+/*信息*/
+#commodity {
+width:1225px;
+height:100%
+}
+.commodity-main {
+    width: 245px;
+    height: 340px;
+    padding: 20px;
+    position: relative;
+    float:left;
+}
+.jsd-tag {
+    background-image: url('../CommodityImg/jsd.png');
+    position:absolute;
+    top:255px;
+    left:15px;
+    width:60px;
+    height:30px;
+}
+.commodity-title {
+position: relative;
+left:60px;
+height: 22px;
+line-height: 22px;
+margin-bottom: 4px;
+text-align: left;
+}
+.proName2 {
+color:#999;
+}
+em{
+    color:#024C8E;
+    font-size:20px;
+    line-height:35px;
+}
+
+/*加减*/
+.reduce {
+    float: left;
+    width: 30px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 16px;
+    color: #0069aa;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
+}
+.nuber {
+    float: left;
+    width: 50px;
+    height: 26px;
+    line-height: 26px;
+    font-size: 16px;
+    color: #0069aa;
+    cursor: pointer;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-left: 0;
+    border-right: 0;
+}
+/*加入购物车*/
+.shopping {
+    padding-left: 130px;
+}
+
+.shopping-but {
+    background-image: url('../LeftNavigationBarImg/jrgwc-n.png');
+    width: 110px;
+    height: 28px;
+    border: 1px solid #ccc;
+}
+/*hover触碰阴影*/
+.commodity-main:hover {
+    box-shadow: -20px 0px 100px -90px #000000,20px 0px 100px -90px #000000;
+}
+ .commodity-main:hover .shopping-but {
+        background-image: url('../LeftNavigationBarImg/jrgwc-d.png');
+        width: 110px;
+        height: 28px;
+        border: 1px solid #6cae38;
+ }

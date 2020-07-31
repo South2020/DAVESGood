@@ -1,0 +1,176 @@
+﻿* {
+    margin:0px;
+    padding:0px;
+}
+.floor-title {
+    margin: 30px 0;
+}
+.floor-title h1 {
+    font-weight: bold;
+    font-size: 25px;
+    text-align: center;
+}
+.my-shopping {
+    padding-bottom: 40px;
+    margin: 0px auto;
+    height: 400px;
+    width: 1650px;
+    display: flex;
+}
+.my-shopping div {
+}
+.my-shopping-frist {
+    width: 330px;
+    height: 400px;
+}
+.my-shopping-last {
+    overflow: hidden;
+    width: 1340px;
+    height: 400px;
+    box-shadow: 3px 3px 3px #d8d8d8;
+}
+.tags {
+    background-color: #80bc0e;
+    width: 100%;
+}
+.my-shopping-frist-one {
+    width: 100%;
+    height: 310px;
+}
+ol, ul, li {
+    list-style: none;
+}
+.tags li {
+    float: left;
+    width: 50%;
+    height: 24px;
+    line-height: 20px;
+    overflow: hidden;
+    text-align:center;
+}
+ .tags li a {
+    display: inline-block;
+    font-size: 16px;
+    width: 160px;
+    color:#fff;
+    overflow: hidden;
+}
+.item a {
+    display: block;
+    margin: 12px;
+}
+/*杨昕怡的css*/
+
+/* 轮播图*/
+/*.ba-img-one {
+    background-image: url('../image/hb-zqj.jpg');
+    background-size: 100% 100%;
+}
+
+.ba-img-tow {
+    background-image: url('../image/hb-ywgl.jpg');
+    background-size: 100% 100%;
+}
+
+.ba-img-three {
+    background-image: url('../image/hb-wlhq.jpg');
+    background-size: 100% 100%;
+}*/
+/*杨昕怡加的css样式*/
+.my-shopping-frist-text {
+   font-weight:bold;
+   font-size:30px;
+   padding:40px 0px 0px 25px ;
+}
+.my-shopping-frist-text a {
+    color: #fff;
+ }
+    /* 轮播图*/
+    .yxylist {
+    height: 400px;
+    width: 1650px;
+    margin: auto;
+}
+.yxylist-left {
+    width: 330px;
+    height: 400px;
+    float: left;
+}
+.yxylist-right {
+    padding-left: 330px;
+    width: 1320px;
+    height: 400px;
+    box-shadow: 3px 3px 3px #d8d8d8;
+}
+.leftimg-one {
+    background-image: url('../image/left-1.jpg');
+    background-size: 100% 100%;
+}
+.leftimg-one div:nth-of-type(1){
+    padding-top:40px;
+}
+.leftimg-one div{
+    text-align:center;
+    color:#fff;
+}
+.leftimg-one div h3:nth-of-type(1){
+    padding-top:15px;
+}
+.color-stang {
+    font-size:20px;
+    font-weight:900;
+}
+/*透明butem*/
+.but-tom {
+    margin: 5px 10px 5px 10px;
+    background: none;
+    color: #fff;
+    border: 1px solid #fff;
+    width:130px;
+    height:40px;
+}
+.yxylist-main {
+    width: 300px;
+    height: 370px;
+    float: left;
+    text-align: center;
+    padding: 15px;
+    font-size: 20px;
+    color: rgb(51, 51, 51);
+}
+    .yxylist-main:hover {
+        color: #024C8E;
+        height: 370px;
+        width: 300px;
+        margin: 0 auto;
+        z-index:20;
+        box-shadow: -20px 0px 100px -90px #000000,20px 0px 100px -90px #000000;
+        /*    触碰阴影*/
+    }
+.yxylist-main strong{
+    font-size:25px;
+    display:block;
+    padding-top:15px;
+    height:40px;
+}
+/*背景图*/
+.b2 {
+    background-image: url('/Content/HandsomeMan/image/left-2.jpg');
+    background-size: 100% 100%;
+}
+.b5 {
+    background-image: url('/Content/HandsomeMan/image/left-3.jpg');
+    background-size: 100% 100%;
+}
+.b6 {
+    background-image: url('/Content/HandsomeMan/image/left-4.jpg');
+    background-size: 100% 100%;
+}
+.b1 {
+    background-image: url('/Content/HandsomeMan/image/left-5.jpg');
+    background-size: 100% 100%;
+}
+.b9 {
+    background-image: url('/Content/HandsomeMan/image/left-6.jpg');
+    background-size: 100% 100%;
+}

@@ -1,0 +1,743 @@
+﻿
+@{
+    ViewBag.Title = "PropleIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section styles{
+    <link href="~/Content/SniperSweetheart/css/PropleCss.css" rel="stylesheet" />
+    
+}
+@using Model
+@model User
+<div class="place"></div>
+<div class="layui">
+    <div class="layui-row mian">
+        <div class="layui-col-xs0 layui-col-sm0 layui-col-md1">
+            <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+        </div>
+        <div class="layui-col-xs2 layui-col-sm2 layui-col-md2">
+            <div class="grid-demo grid-demo-bg1">
+                @*左边导航栏*@
+                <div class="main-left">
+                    <ul id="ulleft">
+                        <li class="main-color">
+                            <div class="personal-img">
+                                <img src="~/Content/HandsomeMan/image/clue.png" width="100" height="100" class="layui-anim layui-anim-rotate layui-anim-loop" />
+                            </div>
+                        </li>
+                        <li class="left-title"><u class="bule"></u>订单管理</li>
+                        <li class="left-a "><a href="javesscripts:;" id="purchase">我的购买记录</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="sales">退换货</a></li>
+                        <li class="border"></li>
+                        <li class="left-title"><u class="bule"></u>个人信息管理</li>
+                        <li class="left-a show"><a href="javesscripts:;" id="personal">编辑个人信息</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="membership">会籍管理</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="password">修改密码</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="site">地址管理</a></li>
+                        <li class="border"></li>
+                        <li class="left-title"><u class="bule"></u>我的专区</li>
+                        <li class="left-a"><a href="javesscripts:;" id="discounts">我的优惠券</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="inventory ">常购清单</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="remark">商品点评</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="consult">购物咨询</a></li>
+                        <li class="border"></li>
+                        <li class="left-title"><u class="bule"></u>服务中心</li>
+                        <li class="left-a"><a href="javesscripts:;" id="arrival">到货通知</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="depreciate">降价通知</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="shoppingcard ">我的购物卡</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="bricks">山姆实体店</a></li>
+                        <li class="left-a"><a href="javesscripts:;" id="line">山姆线上店</a></li>
+                    </ul>
+                </div>
+                @*左边导航栏*@
+            </div>
+        </div>
+        <div class="layui-col-xs10 layui-col-sm10 layui-col-md8">
+            <div class="grid-demo">
+                @*我的购买记录*@
+                <div class="none purchase" name="maing">
+                    <div class="titleshow">我的购买记录</div>
+                    <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                        <ul class="layui-tab-title">
+                            <li class="layui-this">所有订单</li>
+                            <li>待付款(0)</li>
+                            @if (Model != null)
+                            {
+                                <li>待发货(@Model.Order.Where(x=>x.OrderState==1).Count())</li>
+                            }
+                            else
+                            {
+                                <li>待发货(0)</li>
+                            }
+                            <li>待收货(0)</li>
+                            <li>待评价(0)</li>
+                        </ul>
+                        <div class="layui-tab-content" style="height: 100px;">
+                            <div class="layui-tab-item layui-show">
+                                <div class="input-select">
+                                    <input class="gpl-search-txt" placeholder="输入商品名称或收件人姓名" type="text" maxlength="30">
+                                    <button class="but-img"></button>
+                                    <select class="right">
+                                        <option>线上购买记录</option>
+                                        <option>线下购买记录</option>
+                                    </select>
+                                </div>
+
+                                @if (Model.Order == null)
+                                {
+                                    @*没有数据状态*@
+                                    <div class="grzx-null">
+                                        <p class="text">您暂没有待付款购买记录</p>
+                                    </div>
+                                    @*没有数据状态*@
+                                }
+                                else
+                                {
+                                    <div class="layui-colla-title"><div class="OrderBH">订单编号</div><div class="UserName">消费人</div><div class="UserSite">收货地址</div><div class="OrderTime">订单时间</div>@*<div>操作</div>*@</div>
+                                    <div class="grzx-Notnull">
+                                        <div class="layui-collapse Order" lay-filter="test">
+                                            @foreach (var item in Model.Order)
+                                            {
+                                                if (item.OrderState == 0)
+                                                {
+                                                    <div class="layui-colla-item">
+                                                        <div class="layui-colla-title"><div class="OrderBH">@item.OrderBH</div><div class="UserName">@item.User.UserName</div><div class="UserSite">@item.UserSite</div><div class="OrderTime">@item.OrderTime</div>@*<div><input type="button" name="DelOrder" value="删除" /></div>*@<div></div></div>
+                                                        <div class="layui-colla-content">
+                                                            <div class="ordersTitle" name="@item.Id"><div class="OrderBH">商品图片</div><div class="UserName">商品名</div><div class="UserSite">购买数量</div><div class="OrderTime">购买单价</div><div class="OrderTime">购买总价</div>@*<div>操作</div>*@</div>
+                                                            <div class="layui-colla-content  layui-show">
+                                                                @foreach (var items in item.Orders)
+                                                                {
+                                                                    var Zmoney = items.Money * items.Num;
+                                                                    <div class="ordersConter" name="@items.Id"><div class="ComImg"><img src="~/Images/@items.Com.ComImg" width="50" height="50"   alt="Alternate Text" /></div><div class="ComName">@items.Com.ComName</div><div class="Num">@items.Num</div><div class="Money">@items.Money</div><div class="Zmoney">@Zmoney</div>@*<div><input type="button" name="DelOrders" value="删除" /></div>*@</div>
+                                                                }
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                }
+                                            }
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+
+                            @*待付款*@
+                            <div class="layui-tab-item">
+                                <input class="gpl-search-txt" placeholder="输入商品名称或收件人姓名" type="text" maxlength="30" >
+                                <button class="but-img"></button>
+                                <select class="right">
+                                    <option>线上购买记录</option>
+                                    <option>线下购买记录</option>
+                                </select>
+                                @*没有数据状态*@
+                                <div class="grzx-null">
+                                    <p class="text">您暂没有待付款购买记录</p>
+                                </div>
+                                @*没有数据状态*@
+                            </div>
+
+                            @*待发货购买*@
+                        <div class="layui-tab-item">
+                            <input class="gpl-search-txt" placeholder="输入商品名称或收件人姓名" type="text" maxlength="30">
+                            <button class="but-img"></button>
+                            <select class="right">
+                                <option>线上购买记录</option>
+                                <option>线下购买记录</option>
+                            </select>
+                            @if (Model.Order == null)
+                            {
+                                @*没有数据状态*@
+                                <div class="grzx-null">
+                                    <p class="text">您暂没有待付款购买记录</p>
+                                </div>
+                                @*没有数据状态*@
+                            }
+                            else
+                            {
+                                <div class="layui-colla-title"><div class="OrderBH">订单编号</div><div class="UserName">消费人</div><div class="UserSite">收货地址</div><div class="OrderTime">订单时间</div>@*<div>操作</div>*@</div>
+                                <div class="grzx-Notnull">
+                                    <div class="layui-collapse Order" lay-filter="test">
+                                        @foreach (var item in Model.Order)
+                                        {
+                                            if (item.OrderState == 2)
+                                            {
+                                                <div class="layui-colla-item">
+                                                    <div class="layui-colla-title"><div class="OrderBH">@item.OrderBH</div><div class="UserName">@item.User.UserName</div><div class="UserSite">@item.UserSite</div><div class="OrderTime">@item.OrderTime</div>@*<div><input type="button" name="DelOrder" value="删除" /></div>*@<div></div></div>
+                                                    <div class="layui-colla-content">
+                                                        <div class="ordersTitle" name="@item.Id"><div class="OrderBH">商品图片</div><div class="UserName">商品名</div><div class="UserSite">购买数量</div><div class="OrderTime">购买单价</div><div class="OrderTime">购买总价</div>@*<div>操作</div>*@</div>
+                                                        <div class="layui-colla-content  layui-show">
+                                                            @foreach (var items in item.Orders)
+                                                            {
+                                                                var Zmoney = items.Money * items.Num;
+                                                                <div class="ordersConter" name="@items.Id"><div class="ComImg"><img src="~/Images/@items.Com.ComImg" width="50" height="50"   alt="Alternate Text" /></div><div class="ComName">@items.Com.ComName</div><div class="Num">@items.Num</div><div class="Money">@items.Money</div><div class="Zmoney">@Zmoney</div>@*<div><input type="button" name="DelOrders" value="删除" /></div>*@</div>
+                                                            }
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            }
+                        </div>
+
+                            @*待收货*@
+                            <div class="layui-tab-item">
+                                <input class="gpl-search-txt" placeholder="输入商品名称或收件人姓名" type="text" maxlength="30" >
+                                <button class="but-img"></button>
+                                <select class="right">
+                                    <option>线上购买记录</option>
+                                    <option>线下购买记录</option>
+                                </select>
+                                @*没有数据状态*@
+                                <div class="grzx-null">
+                                    <p class="text">您暂没有待收货购买记录</p>
+                                </div>
+                                @*没有数据状态*@
+                            </div>
+
+                            @*评论购买记录*@
+                            <div class="layui-tab-item">
+                                <input class="gpl-search-txt" placeholder="输入商品名称或收件人姓名" type="text" maxlength="30">
+                                <button class="but-img"></button>
+                                <select class="right">
+                                    <option>线上购买记录</option>
+                                    <option>线下购买记录</option>
+                                </select>
+                                @*没有数据状态*@
+                                <div class="grzx-null">
+                                    <p class="text">您暂没有待评论购买记录</p>
+                                </div>
+                                @*没有数据状态*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*退换货*@
+                <div class="sales none" name="maing">
+                    <div class="titleshow">
+                        <div id="purchaseshow">
+                            <div class="titleshow">我的购买记录</div>
+                            <div class="layui-tab layui-tab-brief" lay-filter="docDemoTabBrief">
+                                <ul class="layui-tab-title">
+                                    <li class="layui-this">退换货申请</li>
+                                    <li>退换货查询</li>
+                                </ul>
+                                <div class="layui-tab-content" style="height: 100px;">
+                                    <div class="layui-tab-item layui-show">
+                                        <select class="right">
+                                            <option>线上购买记录</option>
+                                            <option>线下购买记录</option>
+                                        </select>
+                                        @*没有数据状态*@
+                                        <div class="grzx-null">
+                                            <p class="text">没有查询到您的近期订单信息</p>
+                                        </div>
+                                        @*没有数据状态*@
+                                    </div>
+
+                                    @*待付款*@
+                                    <div class="layui-tab-item">
+                                        <select class="right">
+                                            <option>线上购买记录</option>
+                                            <option>线下购买记录</option>
+                                        </select>
+                                        <input class="gpl-search-txt" placeholder="输入商品名称或订单号" type="text" maxlength="30" >
+                                        <button class="but-img"></button>
+                                        @*没有数据状态*@
+                                        <div class="grzx-null">
+                                            <p class="text">没有查询到您的退换货记录</p>
+                                        </div>
+                                        @*没有数据状态*@
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*编辑个人信息*@
+                <div name="maing" class=" personal">
+                    <div class="titleshow">编辑个人信息</div>
+                    <div class="personalCss">
+                        <div class="personal-one-title">当前头像：</div>
+                        <div>
+                            <img src="~/Content/SniperSweetheart/PropleImg/u_avatar.png" />
+                            <span class="personal-one-text">（图片类型：jpg、gif；大小不能超过100KB）</span>
+                            <a class="personal-one-but exit" href="javascripts:;">账户退出</a>
+                        </div>
+                    </div>
+
+                    <div class="personalCss">
+                        <ul>
+                            <li class="clear">
+                                <span class="label">用户名：</span>
+                                <div class="box">@Model.UserAcc</div>
+                            </li>
+                            <li class="clear">
+                                <span class="label">真实姓名：</span>
+                                <div class="box">@Model.UserName</div>
+                            </li>
+                            <li class="clear">
+                                <span class="label">证件号码：</span>
+                                <div class="box"><span>***************@Model.UserID.Substring(14, 4)</span><span></span></div>
+                            </li>
+                            <li class="clear">
+                                <span class="label">您的生日：</span>
+                                <div class="box">@Model.UserID.Substring(10, 2) 月 @Model.UserID.Substring(12, 2) 日</div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="personalCss">
+                        <ul class="common-form">
+                            <li class="clear1">
+                                <label class="label-tit"><em>*</em><span>您的手机</span>：</label>
+                                <input id="mobileInput" type="text" maxlength="11" autocomplete="off" value="*********@Model.UserPhone.Substring(7,4)">
+                                <a class="labox-btn" href="javascript:;" onclick="">已验证，可点击修改</a>
+                                <div class="babox-normal-tip">便于接受优惠信息等</div>
+                                <br /><input type="checkbox" class="l-check-input" checked="">
+                                <label for="mobileAcceptMsg">接受优惠信息的发送</label>
+                            </li>
+                            @*<li class="clear1">
+                                    <label class="label-tit"><em>*</em><span>您的邮箱</span>：</label>
+                                    <input id="mobileInput" type="text" maxlength="11" autocomplete="off" value="131****6713">
+                                    <a class="labox-btn" href="javascript:;" onclick="">验证邮箱</a>
+                                    <div class="babox-normal-tip">便于密码找回、接受优惠信息等</div>
+
+                                    <br /><input type="checkbox" class="l-check-input" checked="">
+                                    <label for="mobileAcceptMsg">接受优惠信息的发送</label>
+                                </li>*@
+                        </ul>
+                    </div>
+                    <button type="button" class="but-tijiao">保存</button>
+                </div>
+                @*会籍管理*@
+                <div class="none membership" name="maing">
+                    <div class="titleshow">会籍管理</div>
+                    <div class="personalCss">
+                        <div class="vip-out-date">
+                            <p class="title-warn">欢迎来到山姆会员网上商城！</p>
+                            <div class="vip-card-list">
+                                <dl class="vip-card-item">
+                                    <dd class="card-pic"><img src="//vip.samsclub.cn/statics-gen/samclub/images/purchase/samclub-card.png" alt="山姆会籍"></dd>
+                                    <dt class="card-title">持有有效的山姆会籍</dt>
+                                    <dd class="card-btn"><a href="#" class="vip-btn-first vip-btn">账户绑定</a></dd>
+                                </dl>
+                                <dl class="vip-card-item">
+                                    <dd class="card-pic"><img src="//vip.samsclub.cn/statics-gen/samclub/images/purchase/samclub-card-status.png" alt="山姆会籍"></dd>
+                                    <dt class="card-title">没有有效的山姆会籍</dt>
+                                    <dd class="card-btn"><a href="#" class="vip-btn-first vip-btn">申请成为山姆会员</a></dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @*修改密码*@
+                <div class="none password" name="maing">
+                    <div class="titleshow">修改密码</div>
+                    <div class="personalCss">
+                        <table class="passtable">
+                            <tr>
+                                <td>原密码：</td>
+                                <td><input type="password" class="mminput" name="yuanpass" /></td>
+                            </tr>
+                            <tr>
+                                <td>修改密码：</td>
+                                <td>
+                                    <input type="password" class="mminput" name="xiupass" />
+                                    <p class="gray">6-20位字符，可由大小写英文、数字或符号“-”“_”等组成</p>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>确认密码：</td>
+                                <td><input type="password" class="mminput" name="quepass" /></td>
+                            </tr>
+                        </table>
+                    </div>
+                    <button type="button" class="but-tijiao upter-but">修改</button>
+                </div>
+                @*地址管理*@
+                <div class="none site" name="maing">
+                    <div><span class="titleshow">地址管理</span><span class="gray">（最多保存20个有效地址，已保存0个）</span></div>
+                    <div class="personalCss">
+
+                        <table class="layui-hide" id="sitestable" lay-filter="sitestable"></table>
+                    </div>
+                </div>
+
+
+
+
+                @*我的优惠券*@
+                <div class="none discounts" name="maing">
+                    <div class="titleshow">我的优惠券</div>
+                    @*没有数据状态*@
+                    <table class="passtable">
+                        <tr>
+                            <td><span class="red">*</span>收件人:</td>
+                            <td><input type="text" class="mminput" placeholder=" 收件人姓名" /></td>
+                        </tr>
+                        <tr>
+                            <td><span class="red">*</span>收货地址:</td>
+                            <td>
+                                @Html.DropDownList("type1")
+                                @Html.DropDownList("type2")
+                                @Html.DropDownList("type3")
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><span class="red">*</span>详细地址:</td>
+                            <td><input type="text" class="mminput" placeholder="详细地址" /></td>
+                        </tr>
+                        <tr>
+                            <td><span class="red">*</span>门牌号：</td>
+                            <td><input type="text" class="mminput" placeholder=" 门牌号补充（选填）" /></td>
+                        </tr>
+                        <tr>
+                            <td><span class="red">*</span>手机号码:</td>
+                            <td><input type="text" class="mminput" placeholder=" 常用手机号码" /></td>
+                        </tr>
+                        <tr>
+                            <td colspan="2"><input type="checkbox" id="default-ads">设为常用地址</td>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                <button type="button" class="but-tijiao">完成</button>
+                                <button type="button" class="but-tijiao">清空</button>
+                            </td>
+                        </tr>
+                    </table>
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                    @*没有数据状态*@
+                </div>
+                @*常购清单*@
+                <div class="none inventory" name="maing">
+                    <div class="titleshow">常购清单</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+                @*商品点评*@
+                <div class="none remark" name="maing">
+                    <div class="titleshow">商品点评</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+                @*购物咨询*@
+                <div class="none consult" name="maing">
+                    <div class="titleshow">购物咨询</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+                @*到货通知*@
+                <div class="none arrival" name="maing">
+                    <div class="titleshow">到货通知</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+                @*降价通知*@
+                <div class="none depreciate" name="maing">
+                    <div class="titleshow">降价通知</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+                @*我的购物卡*@
+                <div class="none shoppingcard" name="maing">
+                    <div class="titleshow">我的购物卡</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+                @*山姆实体店*@
+                <div class="none bricks" name="maing">
+                    <div class="titleshow">山姆实体店</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+                @*山姆线上店*@
+                <div class="none line" name="maing">
+                    <div class="titleshow">山姆线上店</div>
+                    @*没有数据状态*@
+                    <div class="grzx-null">
+                        <p class="text">暂无开发到此功能</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="layui-col-xs0 layui-col-sm0 layui-col-md1">
+            <div class="grid-demo grid-demo-bg1">&nbsp;</div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    <script>
+        $(function () {
+            var layer = layui.layer;
+            var table = layui.table;
+            /*修改密码*/
+            $(".upter-but").click(function () {
+                if ($("[name=xiupass]").val().length == 0 || $("[name=quepass]").val().length == 0 || $("[name=yuanpass]").val().length == 0) {
+                    layer.msg('不可为空！', { icon: 5 });
+                    return;
+                }
+                if ($("[name=xiupass]").val().length < 6) {
+                    layer.msg('新密码不得小于6位数！', { icon: 5 });
+                    return;
+                }
+                if ($("[name=quepass]").val().length < 6) {
+                    layer.msg('新密码不得小于6位数！', { icon: 5 });
+                    return;
+                }
+                if ($("[name=xiupass]").val() == $("[name=quepass]").val()) {
+                    var info = {
+                        yuanpass: $("[name=yuanpass]").val(),
+                        UserPwd: $("[name=quepass]").val()
+                    }
+                    $.ajax({
+                        url: "/Prople/Prople/PropleUpterpass",
+                        data: info,
+                        success: function (res) {
+                            if (res.msg == 1005) {
+                                layer.msg('原密码错误！', { icon: 5 });
+                                return;
+                            }
+                            else if (res.msg == 1001) {
+                                layer.msg('修改成功！', { icon: 1 });
+                            } else {
+                                layer.msg('修改失败！', { icon: 5 });
+                            }
+                        }
+                    });//ajax
+                } else {
+                    layer.msg('密码不一致！', { icon: 5 });
+                }
+
+            });
+
+            $("#ulleft .left-a a").click(function () {
+                var id = $(this).attr("id");
+                $("[name=maing]").hide();
+                $("." + id + "").show();
+
+            })//点击左边导航栏
+
+            //加载地址数据
+            table.render({
+                elem: '#sitestable'
+                , url: '/Prople/Prople/SiteSelect/'
+                , toolbar: true
+                , toolbar: 'default'//新增删除一系列按钮
+                , page: true //开启分页
+                , cols: [[
+                    { type: 'checkbox' }
+                    ,{ field: 'id', width: 80, title: 'ID', sort: true }
+                    , { field: 'SiteProName', width: 200, title: '收件人' }
+                    , { field: 'SiteDetail', title: '地址详细', width: 300 }
+                    , { field: 'SitePre', width: 120, title: '地址是否默认'}
+                    , { field: 'SitePhone', width: 120, title: '电话' }
+                ]]
+                , page: true
+            });
+
+            //判断 #sitestable
+            table.on('toolbar(sitestable)', function (obj) {
+                var checkStatus = table.checkStatus(obj.config.id);
+                switch (obj.event) {
+                    case 'add':
+                        Add();
+                        break;
+                    case 'delete':
+                        Del(checkStatus);
+                        break;
+                    case 'update':
+                        //Update();
+                        break;
+                };
+            });
+
+            //删除地址
+            function Del(checkStatus) {
+                var arrary = [];
+                for (var i = 0; i < checkStatus.data.length; i++) {
+                    var info = {
+                        Id: checkStatus.data[i].id
+                    };
+                    arrary.push(info);
+                }
+                var infos = {
+                    Sites: arrary
+                };
+                $.ajax({
+                    url: "/Prople/Prople/SiteDel",
+                    type:"post",
+                    data: infos,
+                    success: function (res) {
+                        if (res == 1001) 
+                            layer.msg("删除成功", { icon: 1 });
+                        
+                        else
+                            layer.msg("删除失败", { icon: 2 });
+                        table.reload("sitestable", {
+                            url: '/Prople/Prople/SiteSelect'
+                        });
+                    }
+                });
+            }
+
+            //新增地址
+            function Add() {
+                layer.open({
+                    type: 2 //此处以iframe举例
+                    , title: '新增地址'
+                    , area: ['600px', '450px']
+                    , shade: 0
+                    , skin: 'layui-layer-molv'
+                    , btnAlign: 'c'
+                    , maxmin: true
+                    , offset: 'auto'
+                    , content: '/Prople/Prople/SiteAddIndex'
+                    , btn: ['新增'] //只是为了演示
+                    , yes: function (index, layero) {
+                        /!*当前层索引和当前层dom对象*!/
+                        var body = layer.getChildFrame('body', index);
+                        //获取当前弹出框页面body标签下的input标签val
+                        //find方法是获得当前元素的所有子孙元素 会一直往下找
+                        //但是可以设定选择器（jquery选择器）
+                        var info = {
+                            QuXianId: body.find('#type3').val(),
+                            SitePhone: body.find("input[name=SitePhone]").val(),
+                            SiteProName: body.find("input[name=SiteProName]").val(),
+                            SiteDetail: body.find("input[name=SiteDetail]").val()
+                        }
+                        if (info.QuXianId == "") {
+                            layer.msg('请正确选择地址', { icon: 5 });
+                            return;
+                        }
+                        if (info.SitePhone == "" || info.SitePhone.length!=11) {
+                            layer.msg('请正确填写电话号', { icon: 5 });
+                            return;
+                        }
+                        if (info.SiteProName == "" || info.SiteProName.length >15) {
+                            layer.msg('请正确填写收件人', { icon: 5 });
+                            return;
+                        }
+                        if (info.SiteDetail == "" || info.SiteDetail.length>15) {
+                            layer.msg('请正确填写详细地址', { icon: 5 });
+                            return;
+                        }
+                        $.ajax({
+                            url: "/Prople/Prople/SiteAdd",
+                            data: info,
+                            success: function (date) {
+                                table.reload("sitestable", {
+                                    url: '/Prople/Prople/SiteSelect'
+                                });
+                                if (date.msg = 1001) {
+                                    layer.msg('新增成功', { icon: 1 });
+                                } else {
+                                    layer.msg('新增失败', { icon: 5 });
+                                }
+                            }
+
+                        });
+                    }
+                    , btn2: function () {
+                        layer.closeAll();
+                    }
+                    , cancel: function (index, layero) {
+                        layer.close(index);
+                    }
+                });
+            }
+
+
+            //退出
+            $(".exit").on("click", function () {
+                layer.msg("退出成功", { icon: 1 });
+
+                setTimeout(function () {
+                    $.ajax({
+                        url: "/Prople/Prople/Exit",
+                        success: function () {
+                            location.href = "/Home/Index";
+                        }
+                    });
+                },1000);
+            });
+
+            //双击表格
+            table.on('rowDouble(sitestable)', function (obj) {
+                var data = obj.data;
+                layer.open({
+                    type: 2 
+                    , title: '修改地址'
+                    , area: ['600px', '450px']
+                    , shade: 0
+                    , btnAlign: 'c'
+                    , maxmin: true
+                    , offset: 'auto'
+                    , content: '/Prople/Prople/SiteUpIndex/' + data.id
+                    , btn: ['保存'] //只是为了演示
+                    , yes: function (index, layero) {
+                        /!*当前层索引和当前层dom对象*!/
+                        var body = layer.getChildFrame('body', index);
+                        //获取当前弹出框页面body标签下的input标签val
+                        //find方法是获得当前元素的所有子孙元素 会一直往下找
+                        //但是可以设定选择器（jquery选择器）
+                        var info = {
+                            Id: data.id,
+                            QuXianId: body.find('#type3').val(),
+                            SitePhone: body.find("input[name=SitePhone]").val(),
+                            SiteProName: body.find("input[name=SiteProName]").val(),
+                            SiteDetail: body.find("input[name=SiteDetail]").val(),
+                            SitePre: (body.find("input[name=SitePre]").prop("checked")==true) ?1:0
+                        }
+                        $.ajax({
+                            url: "/Prople/Prople/SiteUp",
+                            data: info,
+                            success: function (res) {
+                                if (res == "1001") {
+                                    table.reload("sitestable", {
+                                        url: '/Prople/Prople/SiteSelect'
+                                    });
+                                    setTimeout(function () {
+                                        layer.msg("保存成功", { icon: 1 });
+                                    }, 500);
+                                } else if (res == "1000") {
+                                    setTimeout(function () {
+                                        layer.msg("保存失败", { icon: 2 });
+                                    }, 500);
+                                }
+                                layer.closeAll();
+                            }
+                        });
+                    }
+                    , btn2: function () {
+                        layer.closeAll();
+                    }
+                    , cancel: function (index, layero) {
+                        layer.close(index);
+                    }
+                });
+
+                //标注选中样式
+                obj.tr.addClass('layui-table-click').siblings().removeClass('layui-table-click');
+            });
+
+        });//窗体加载事件
+    </script>
+}

@@ -1,0 +1,366 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/HandsomeMan/Css/ShopCarCss.css" rel="stylesheet" />
+<div class="shoppingTrolley">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md10">
+                <div class="grid-demo grid-demo-bg1"><div class="shopping-title">我的购物车</div>
+                    收货地址：<select id="select"></select>
+                </div>
+            </div>
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md2">
+                <div class="grid-demo grid-demo-bg1"><u class="zhuy"></u></div>
+            </div>
+        </div>
+    </div>
+</div>
+@*购物车空*@
+<div class="ShoppingNull none">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs6 layui-col-sm6 layui-col-md12">
+                <div class="grid-demo grid-demo-bg1">
+                    <div class="shopping-gwc">
+                        <p class="text">您的购物车还是空的</p>
+                        <a href="/LeftNavigationBar/Home/Index?Id1=2&Id2=2" class="link">去逛逛</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*购物车空*@
+
+
+
+@*购物车显示*@
+<div class="ShoppingShow">
+    <div class="layui-container">
+        <div class="layui-row">
+            <div class="layui-col-xs12 layui-col-sm12 layui-col-md12">
+                <div class="grid-demo grid-demo-bg1">
+                    @*代码*@
+                    <table border="0">
+                        <tr class="gwc-top tobo">
+                            <td colspan="7">
+                                <u class="ptsp"></u>
+                                <h2 style="padding-left:50px;"><strong>普通商品</strong></h2>
+                            </td>
+                            <td><a href="#">收起<u class="down"></u></a></td>
+                        </tr>
+                        <tr>
+                            <td class="check-big"><input type="checkbox" class="checkAll" id="ckall" /></td>
+                            <td class="img-big"></td>
+                            <td class="com-big">商品信息</td>
+                            <td class="price-big">单价（元）</td>
+                            <td class="num-big">数量</td>
+                            <td class="weight-big">重量（含包装）</td>
+                            <td class="subtotal-big">小计（元）</td>
+                            <td class="operation-big">操作</td>
+                        </tr>
+                        @*内容*@
+                        <tbody id="content">
+
+                            @*内容*@
+                        </tbody>
+                        <tr class="gwc-bottom tobo">
+                            <td colspan="2"><a href="javascript:void(0);" id="delAll">批量删除</a></td>
+                            <td>
+                                <table class="message">
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td class=""></td>
+                                        <td><span></span></td>
+                                        <td class="zmoney"></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td colspan="3">&nbsp;</td>
+                            <td>
+                                <span>合计</span><br>
+                                <span><a style="color: #0069aa;">¥<strong style="font-size:18px;" id="bigmoney">0.0</strong></a> (<span id="count"></span>件)</span>
+
+                            </td>
+                            <td><a href="javascript:void(0);" class="close">去结算</a></td>
+                        </tr>
+                    </table>
+                    @*代码*@
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@*购物车显示*@
+@section scripts{
+    <script>
+        $(function () {
+            var layer = layui.layer;
+
+            $.get("/ShopCarGL/Home/selectArea", "", function (res) {
+                if (res.length == 0) {
+                    $("#select").append("<option>请添加地址</option>");
+
+                } else {
+                    $("#select").append("<option>请选择地址</option>");
+                    for (var i = 0; i < res.length; i++) {
+                        $("#select").append("<option>" + res[i].dz + "</option>");
+                    }
+                }
+            })//地址查询
+            $.get("/ShopCarGL/Home/selectshopcar", "", function (data) {
+                if (data.count == 0) {
+                    $(".ShoppingNull").removeClass("none");
+                    $(".ShoppingShow").addClass("none");
+                    return;
+                }
+                for (var i = 0; i < data.list.length; i++) {
+                    $("#content").append("<tr class=\"table-mian\" shopId='" + data.list[i].Id + "'>" +
+                        "<td class=\"check-big\" comid='" + data.list[i].ComId + "'>" +
+                        "<input type=\"checkbox\" class=\"checkAll\" name='ck'/>" +
+                        "</td>" +
+                        "<td class= \"img-big\" > <a href='/Commodity/Home/Index/" + data.list[i].ComId+"'><img src=\"/Images/" + data.list[i].ComImg + "\" /></a></td> " +
+                        "<td class= \"com-big\" > " +
+                        "<span > " + data.list[i].ComName + "</span > <br />" +
+                        "<span> <u class=\"wlyth\"></u><a class=\"wlyth-left\">支持7天无理由退货</a></span> " +
+                        "</td > " +
+                        "<td class= \"price-big\"> " + data.list[i].ComMoney + "</td > " +
+                        "<td class= \"num-big\"> " +
+                        "<div class= \"numbers\"> " +
+                        "<div class= \"reduce yxy-add\"> -</div> " +
+                        "<div class= \"nuber\" >  " + data.list[i].CarNum + "</div> " +
+                        "<div class= \"reduce yxy-minus\"> +</div> " +
+                        "</div > " +
+                        "</td > " +
+                        "<td class= \"weight-big\" weight='" + data.list[i].ComWeight + "'> <span>" + data.list[i].ComWeight * data.list[i].CarNum + "</span>kg</td> " +
+                        "<td class= \"subtotal-big\">¥<span>" + data.list[i].ComMoney * data.list[i].CarNum+ "</span></td> " +
+                        "<td class=\"operation-big\"> <u class=\"delete\"></u></td> " +
+                        "</tr >");
+                }
+                $(".yxy-add").on("click", function () {
+                    if (parseInt($(this).next().text()) <= 1) {
+                        return;
+                    }
+                    $(this).next().text(parseInt($(this).next().text()) - 1);
+                    var zl = $(this).parents(".table-mian").find(".weight-big").attr("weight");//获取单个重量
+                    $(this).parents(".table-mian").find(".weight-big span").text(parseFloat(zl) * parseInt($(this).next().text()));//单个商品总重量
+                    $(this).parents(".table-mian").find(".subtotal-big span").text(parseFloat($(this).parents(".table-mian").find(".nuber").text()) * parseFloat($(this).parents(".table-mian").find(".price-big").text())); //小计
+                    var info = {
+                        Id: $(this).parents(".table-mian").attr("shopId"),
+                        CarNum: $(this).parents(".table-mian").find(".nuber").text()
+                    }
+                    $.ajax({
+                        url: "/ShopCarGL/Home/upshop",
+                        type: "post",
+                        data: info,
+                        success: function (res) {
+                        }
+                    });
+
+                });//减
+                $(".yxy-minus").on("click", function () {
+                    $(this).prev().text(parseInt($(this).prev().text()) + 1);
+                    var zl = $(this).parents(".table-mian").find(".weight-big").attr("weight");//获取单个重量
+                    $(this).parents(".table-mian").find(".weight-big span").text(parseFloat(zl) * parseInt($(this).prev().text()));//单个商品总重量
+                    $(this).parents(".table-mian").find(".subtotal-big span").text(parseFloat($(this).parents(".table-mian").find(".nuber").text()) * parseFloat($(this).parents(".table-mian").find(".price-big").text())); //小计
+                    var info = {
+                        Id: $(this).parents(".table-mian").attr("shopId"),
+                        CarNum: $(this).parents(".table-mian").find(".nuber").text(),
+                        ComId: $(this).parents(".table-mian").find(".check-big").attr("comid"),//商品ID
+                    }
+                    $.ajax({
+                        url: "/ShopCarGL/Home/upshop",
+                        type: "post",
+                        data: info,
+                        success: function (res) {
+                            if (res.msg == "1002") {
+                                layer.msg('库存不够', {icon :5});
+                            }
+                        }
+                    });
+
+
+                });//加
+                $(".delete").click(function () {
+                    var id = $(this).parents(".table-mian").attr("shopId");
+                    var i = {
+                        Id:id
+                    }
+                    $.post("/ShopCarGL/Home/delId", i, function (res) {
+                        if (res == "1001") {
+                            layer.msg('删除成功', { icon: 1 });
+                            setTimeout(function () {
+                                history.go(0);
+
+                            }, 1000);
+                        }
+                    });
+                });//删除行
+
+                $("#ckall").click(function () {
+                    var bool = $(this).prop("checked");
+                    $("[name=ck]").prop("checked", bool);
+                    if ($("[name=ck]:checked").length == 0) {
+                        $("#bigmoney").text("0.0");
+                        $("#count").text("0");//总件数
+                    } else {
+                        var arr = $(".table-mian");
+                        $("#count").text(arr.length);//总件数
+                        var arr1 = $(".subtotal-big span");//总金额
+                        var bg = 0;
+                        for (var q = 0; q < arr1.length; q++) {
+                            bg = parseFloat(bg) + parseFloat(arr1[q].innerText);
+                            $("#bigmoney").text(bg);
+                        }
+
+                    }
+                });//全选
+                $("[name=ck]").click(function () {
+                    if ($("[name=ck]:checked").length==0) {
+                        $("#bigmoney").text("0.0");
+                    }
+                    if ($("[name=ck]").length == $("[name=ck]:checked").length) {
+                        $("#ckall").prop("checked", true);
+                    } else {
+                        $("#ckall").prop("checked", false);
+                    }
+                    $("#count").text($("[name=ck]:checked").length);//总件数
+                    var arr1 = $("[name=ck]:checked").parents(".table-mian").find(".subtotal-big span");
+                    var bg = 0;
+                    for (var q = 0; q < arr1.length; q++) {
+                        bg = parseFloat(bg) + parseFloat(arr1[q].innerText);
+                        $("#bigmoney").text(bg);
+                    }
+                })// 单选
+                $("#delAll").click(function () {
+                    var array = [];
+                    $("[name=ck]:checked").each(function () {
+                        var spid = {
+                            Id: $(this).parents(".table-mian").attr("shopId")
+                        };
+                        array.push(spid);
+                    });
+                    var info = {
+                        ar: array
+                    }
+                    $.post("/ShopCarGL/Home/delIds", info, function (res) {
+                        if (res == "1001") {
+                            layer.msg('删除成功', { icon: 1 });
+                            setTimeout(function () {
+                                history.go(0);
+
+                            }, 1000);
+                        }
+                    });
+                });//批量删除
+            });//数据加载
+
+
+            $(".close").click(function () {
+                if ($("#select option").length == 1) {
+                    layer.msg("请添加地址再结算", { icon:5 });
+                    return;
+                }
+                var idif = []
+                $("[name=ck]:checked").parents(".table-mian").each(function () {
+                    var ShopCar = {
+                        ComId: $(this).find(".check-big").attr("comid"),
+                        CarNum: $(this).find(".nuber").text(),//商品数量
+
+                    }
+                    idif.push(ShopCar);
+                })
+                if (idif.length == 0) {
+                    layer.msg("请选择");
+                    return
+                }
+                var ar = {
+                    fo: idif
+                }
+                var Area = {
+                    area: $("#select").val()
+                }
+                $.ajax({
+                    url: "/ShopCarGL/Home/ifNum",
+                    type: "post",
+                    data: ar,
+                    success: function (res) {
+                        console.info(res);
+                        if (res.bm == "1002") {
+                            layer.msg(res.msg, { icon: 5 });
+                            return;
+                        }
+                        $.ajax({
+                            url: "/ShopCarGL/Home/addOrder",
+                            type: "post",
+                            data:Area,
+                            success: function (date) {
+                                var array = [];//购物车订单详情数组
+                                var shop = [];//购物车ID数组
+                                $("[name=ck]:checked").parents(".table-mian").each(function () {//循环获取节点文本
+                                    var spid = {
+                                        Id: $(this).attr("shopId")//购物车ID
+                                    };
+                                    var info = {
+                                        ComId: $(this).find(".check-big").attr("comid"),//商品ID
+                                        Weight: $(this).find(".weight-big").attr("weight"),//商品重量
+                                        Money: $(this).find(".price-big").text(),//商品价格
+                                        Num: $(this).find(".nuber").text(),//商品数量
+                                        ZWeight: $(".message").find(".zweight span").text(),//单个商品总重量
+                                        OrderId: date.id
+                                    };
+                                    array.push(info);
+                                    shop.push(spid);
+                                });
+                                var infos = {
+                                    fo: array
+                                }
+                                var info = {
+                                    spfo: shop
+                                }
+                                $.ajax({
+                                    url: "/ShopCarGL/Home/addOrders",
+                                    type: "post",
+                                    data: JSON.stringify(infos),
+                                    contentType: "application/json",
+                                    success: function (date) {
+                                        if (date == 1001) {
+                                            $.ajax({
+                                                url: "/ShopCarGL/Home/del",
+                                                type: "post",
+                                                data: JSON.stringify(info),
+                                                contentType: "application/json",
+                                                success: function (data) {
+                                                    if (data == 1001) {
+                                                        layer.msg('结算成功', { icon: 1 });
+                                                        setTimeout(function () {
+                                                            history.go(0);
+
+                                                        }, 1000);
+                                                    }
+                                                }
+                                            });
+                                        }
+                                    }
+                                });
+                            }
+                        });
+                    }
+                });
+
+            });//结算
+        });
+    </script>
+}
+
+

@@ -1,0 +1,53 @@
+﻿
+@using Model
+@{
+    List<ComType> ComTypes = Session["qwe"] as List<ComType>;
+}
+
+<div class="layui-row">
+    <div class="layui-col-md1">
+        <div class="grid-demo">&nbsp;</div>
+    </div>
+    @foreach (var item in ComTypes)
+    {
+        if ("1".Equals(item.Id.ToString()))
+        {
+            <div class="layui-col-md1 ml">
+                <div class="grid-demo"><a href="" class="nav-color">@item.ComTypeName</a></div>
+            </div>
+        }
+        else
+        {
+            <div class="layui-col-md1  comtype-1 ml">
+                <div class="grid-demo"><a href="/LeftNavigationBar/Home/Index?Id1=@item.Id&Id2=@item.Id" class="nav-color">@item.ComTypeName</a></div>
+                <div class="comtype-1-content">
+                    <table class="content-table">
+                        <tr>
+                            @foreach (var item2 in item.ComType1)
+                            {
+                                <td valign="top">
+                                    <a href="/LeftNavigationBar/Home/Index?Id1=@item.Id&Id2=@item2.Id" class="table-one">@item2.ComTypeName</a>
+                                    <table>
+                                        @foreach (var item3 in item2.ComType1)
+                                        {
+                                            <tr>
+                                                <td><a href="/LeftNavigationBar/Home/Index?Id1=@item.Id&Id2=@item3.Id">@item3.ComTypeName</a></td>
+                                            </tr>
+                                        }
+                                    </table>
+                                </td>
+                            }
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        }
+    }
+
+    <div class="layui-col-md1">
+        <div class="grid-demo">&nbsp;</div>
+    </div>
+
+</div>
+
+

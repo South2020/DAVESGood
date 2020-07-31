@@ -1,0 +1,356 @@
+﻿body {
+    background-color: #f4f4f4;
+    
+}
+.place {
+    height:30px;
+}
+.mian div {
+}
+.main-color {
+    height:150px;
+    padding-bottom: 2px;
+    background-color: #0069aa;
+}
+.layui-col-xs2 {
+width:250px;
+}
+.main-left ul {
+    width: 200px;
+    border: 1px #ccc solid;
+    position: relative;
+    background-color: #fff;
+}
+ .main-left ul li:nth-child(1) {
+   border-left: 5px solid #0069aa;
+ }
+.main-left ul li{
+    padding-left: 40px;
+    color: #333;
+    border-left:5px solid #fff;
+}
+.main-left ul li a{
+     height: 48px;
+    line-height: 48px;
+   
+}
+.left-a:hover {
+    height: 48px;
+    line-height: 48px;
+    background-color: #f7f7fa;
+    cursor: pointer;/*手！*/
+    border-left:5px solid #0069aa;
+}
+.left-a:hover a {
+ color: #0069aa;
+}
+.left-title {
+    position: relative;
+    height: 48px;
+    line-height: 58px;
+    font-size: 14px;
+    color: #666;
+    font-weight: bold;
+}
+.bule {
+    background-image: url('../PropleImg/bule.png');
+    position: absolute;
+    left: 20px;
+    top: 23px;
+    width: 12px;
+    height: 12px;
+}
+.border{
+    border-bottom:1px #ccc solid;
+    width:130px;
+    margin:auto;
+}
+.personal-img {
+    background-image: url('../PropleImg/personal.png');
+    width: 100px;
+    height: 100px;
+    position: absolute;
+    right: 50px;
+    top: 20px;
+}
+.none {
+display:none;
+}
+/*显示*/
+.show {
+    background-color: #f7f7fa;
+    cursor: pointer; /*手！*/
+    border-left: 5px solid red;
+}
+.titleshow {
+    color: #0069aa;
+    font-size:16px;
+}
+/*改底层layui代码*/
+.layui-tab-brief > .layui-tab-title .layui-this {
+    color: #0069aa;
+}
+.layui-tab-brief > .layui-tab-more li.layui-this:after, .layui-tab-brief > .layui-tab-title .layui-this:after {
+    border: none;
+    border-radius: 0;
+    border-bottom: 2px solid #0069aa;
+}
+
+
+/*我的购买记录*/
+.input-select {
+width:100%;
+height:50px;
+}
+.gpl-search-txt {
+    float: left;
+    width: 356px;
+    height: 16px;
+    padding: 8px 0 8px 10px;
+    line-height: 16px;
+    border: 1px solid #e0e0e0;
+    outline: 0;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-border-radius: 3px;
+    color: #333;
+}
+.but-img {
+    position:absolute;
+    top:88px;
+    left:347px;
+    width:20px;
+    height:20px;
+    border:0;
+    background-image: url('../PropleImg/but-ss.png');
+}
+.right{
+float:right;
+line-height:18px;
+height:26px;
+}
+.grzx-null {
+    position: relative;
+    height: 450px;
+    margin-bottom: 20px;
+    background: url('../PropleImg/grzx-null.png') no-repeat center 70px;
+}
+.text {
+    position: absolute;
+    bottom: 140px;
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 18px;
+    color: #666;
+    text-align: center;
+}
+/*退换货*/
+/*编辑个人信息*/
+.personalCss {
+    padding: 30px 25px;
+    margin: 10px auto 0;
+    border: 1px solid #e1e1e1;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    background-color: #fff;
+}
+.personal-one-title {
+    display: block;
+    float: left;
+    width: 70px;
+    padding-right: 6px;
+    height: 92px;
+    line-height: 92px;
+    text-align: right;
+    overflow: hidden;
+}
+.personal-one-text {
+    margin-left: 30px;
+    height: 92px;
+    line-height: 92px;
+    color: #aaa;
+}
+.personal-one-but {
+    display: inline-block;
+    float: right;
+    height: 28px;
+    padding: 0 15px;
+    line-height: 28px;
+    text-align: center;
+    margin-right: 15px;
+    margin-top: 30px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+    border: 1px solid #e0e0e0;
+    color: #333;
+    background-color: #fff;
+}
+.clear {
+    height: 34px;
+    line-height: 34px;
+    color: #666;
+}
+.label {
+    float: left;
+    display: inline-block;
+    width: 85px;
+    text-align: right;
+    padding-right: 5px;
+}
+.box {
+    float: left;
+}
+/*手机*/
+.label-tit em {
+color:red;
+padding:0px 20px 0px 20px;
+}
+#mobileInput {
+    width: 50%;
+    height: 40px;
+    padding: 0 10px;
+    line-height: 40px;
+    border: 1px solid #e0e0e0;
+}
+.labox-btn {
+    padding:13px 25px 13px 25px;
+    width: 16%;
+    height:40px;
+    line-height: 40px;
+    text-align: center;
+    background-color: #f7f7f7;
+    border: 1px solid #eee;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+.babox-normal-tip {
+ float:right;
+    width: 210px;
+    height: 40px;
+    margin-left: 10px;
+    line-height: 40px;
+    overflow: hidden;
+    color: #aaa;
+    overflow: hidden;
+}
+.clear1 {
+height:100px;
+}
+.l-check-input {
+margin:10px 0px 0px 120px;
+}
+/*会籍管理*/
+.title-warn {
+    font-size: 24px;
+}
+.vip-card-list {
+    margin-top: 25px;
+    display:flex;
+}
+.vip-card-item{
+    display: inline-block;
+    width: 48%;
+    margin-left: 3%;
+    padding: 55px 0;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    background-color: #fafafa;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    text-align: center;
+}
+.card-pic {
+    width: 145px;
+    height: 145px;
+    margin-right: auto;
+    margin-left: auto;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    line-height: 145px;
+    text-align: center;
+}
+.card-btn a:hover {
+color:#fff;
+}
+.card-title {
+    padding: 20px 0 30px;
+    font-size: 24px;
+    line-height: 48px;
+}
+.vip-btn-first {
+    background-color: #006aaf;
+    color: #fff;
+    
+}
+.vip-btn {
+    margin:auto;
+    height:50px;
+    line-height:50px;
+    display:block;
+    width: 220px;
+    font-size:18px;
+}
+/*提交按钮*/
+.but-tijiao {
+background-color:#0069aa;
+border:0;
+width:150px;
+height:50px;
+color:#fff;
+font-size:20px;
+margin:20px 0 0 80px;
+}
+/*修改密码*/
+.mminput {
+    width: 400px;
+    border: 1px solid #dcdcdc;
+    height: 36px;
+    line-height: 36px;
+    outline: none;
+    padding: 0px 5px;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    -webkit-border-radius: 2px;
+}
+.gray {
+    color: #666;
+}
+.red {
+color:red;
+}
+.passtable tr {
+height:60px;
+}
+.grzx-Notnull {
+}
+.layui-colla-title div {
+    float: left;
+    text-align: center;
+    width: 25%;
+}
+.ordersTitle {
+    width: 100%;
+    height: 20px;
+}
+.ordersTitle div {
+    float: left;
+    text-align: center;
+    width: 20%;
+}
+.ordersConter div {
+    float: left;
+    text-align: center;
+    width: 20%;
+}
+.ordersConter {
+    height: 120px;
+    line-height: 120px;
+}
